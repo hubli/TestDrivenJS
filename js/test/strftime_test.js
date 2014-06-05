@@ -1,4 +1,33 @@
+// YUI Test
+YUI({
+	combine: true,
+	timeout: 1000
+}).use("node", "console", "test", function(Y) {
+	var assert = Y.Assert;
 
+	var strftimeTestCase = new Y.Test.Case({
+		name: "Date.prototype.strftime Tests",
+		setUp: function() {
+			this.date = new Date(2009, 0, 5);
+		},
+		"test %Y should return full year": function() {
+			var year = Date.formats.Y(this.date);
+			assert.isNumber(year);
+			assert.areEqual(2009, year);
+		}
+	});
+
+	var r = new Y.Console({
+		newestOnTop: false,
+		style: "block"
+	});
+
+	r.render("#testReport");
+	Y.Test.Runner.add(strftimeTestCase);
+	Y.Test.Runner.run();
+})
+
+/*
 testCase("strftime test", {
 	"setUp": function() {
 		this.date = new Date(2009, 0, 5);
@@ -32,5 +61,5 @@ testCase("strftime test", {
 		assert("%D should be shortcut %m/%d/%y", 
 		Date.formats.D === "%m/%d/%y");
 	}
-});
+});*/
 
